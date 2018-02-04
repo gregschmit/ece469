@@ -13,10 +13,10 @@ module 4mux1_32bit(input wire [31:0] a, b, c, d,
   assign q = s[1] ? qa : qb;
 endmodule
 
-module alu(input  logic [31:0] a, b,
-           input  logic [2:0]  f,
+module alu(input logic [31:0] a, b,
+           input logic [2:0] f,
            output logic [31:0] y,
-           output logic        zero);
+           output logic zero);
   assign begin
     m1 2mux1_32bit(b, ~b, f[2], bb);
     ma = a & bb;
