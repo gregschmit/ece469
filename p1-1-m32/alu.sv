@@ -24,5 +24,6 @@ module alu(input logic [31:0] a, b,
     mc = a + bb;
     md = a + bb; /* TODO: this should be zero-extend / SLT */
     m 4mux1_32bit(ma, mb, mc, md, f[0:1], y);
+    zero = (y == 0) ? 1 : 0;
   end
 endmodule
