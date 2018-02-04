@@ -1,12 +1,17 @@
 
-module 2mux1(input wire [1:0] in, wire s, output wire out);
-  assign out = s ? in[0] : in[1]
+module 2mux1_32bit(input wire [31:0] a, b,
+                   input wire s,
+                   output wire [31:0] q);
+  assign out = s ? a : b;
 endmodule
 
-module 4mux1(input wire [3:0] in, wire [1:0] s);
-  
-  m1 = 2mux1(
-  assign out = s[
+module 4mux1_32bit(input wire [31:0] a, b, c, d,
+                   input wire [1:0] s,
+                   output wire [31:0] q);
+  ma 2mux1(a, b, s[0], qa);
+  mb 2mux1(c, d, s[0], qb);
+  assign q = s[1] ? qa : qb;
+endmodule
 
 
 endmodule
