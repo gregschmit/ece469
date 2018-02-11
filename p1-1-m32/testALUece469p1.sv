@@ -11,7 +11,7 @@ logic z;
 
 //change first bracket numbers to reflect size of line
 //change second bracket numbers to reflect the number of lines
-logic [66:0] testvector[9:0];
+logic [67:0] testvector[10:0];
 integer num; // used for iterating through testvector
 ALU dut(a,b,f[2:0],y,z); //please make sure I/Os are in correct order
 
@@ -19,7 +19,7 @@ ALU dut(a,b,f[2:0],y,z); //please make sure I/Os are in correct order
 initial 
 begin
 $readmemh("C:/Modeltech_pe_edu_10.4a/examples/testvector.tv",testvector);
-for (num = 0; num <10;num = num + 1)
+for (num = 0; num <11;num = num + 1)
 begin
 
 {a,b,f} = testvector[num];#10;
