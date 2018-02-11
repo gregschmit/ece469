@@ -1,4 +1,4 @@
-`include "ALU.sv";
+`include "ALU.sv"
 module testALUecep1();
 
 logic [31:0] a;
@@ -11,7 +11,7 @@ logic z;
 
 //change first bracket numbers to reflect size of line
 //change second bracket numbers to reflect the number of lines
-logic [66:0] testvector[7:0];
+logic [66:0] testvector[9:0];
 integer num; // used for iterating through testvector
 ALU dut(a,b,f[2:0],y,z); //please make sure I/Os are in correct order
 
@@ -19,19 +19,13 @@ ALU dut(a,b,f[2:0],y,z); //please make sure I/Os are in correct order
 initial 
 begin
 $readmemh("C:/Modeltech_pe_edu_10.4a/examples/testvector.tv",testvector);
-for (num = 0; num <8;num = num + 1)
+for (num = 0; num <10;num = num + 1)
 begin
 
 {a,b,f} = testvector[num];#10;
 
-$display("a=%h b=%h ~b=%h a + ~b+1=%h f=%h y=%h",a,b,~b,a + ~b+1 ,f,y);
+$display("a=%h b=%h f=%b y=%h",a,b,f,y);
 end
-
-
-
-
-
-
 
 
 
@@ -49,6 +43,6 @@ else
 	$display("Error occured on testcase# %d",num);	
 end
 */
-
 end
-endmodule;
+
+endmodule

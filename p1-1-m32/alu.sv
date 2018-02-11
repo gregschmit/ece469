@@ -4,6 +4,7 @@ assign out = op ? i1 : i0;
 endmodule
 
 module mux4to1 (input wire [31:0] i0,i1,i2,i3, input wire [1:0] op, output wire [31:0] out); 
+
 wire [31:0] outmux0, outmux1;
 mux2to1 dut0(i0,i1,op[0],outmux0);
 mux2to1 dut1(i2,i3,op[0],outmux1);
@@ -41,12 +42,12 @@ wire [31:0]rcaout;
 wire cout;
 wire [31:0]zeroex;
 
-mux2to1 mux21(b,~b,f[2],mux21out);
-RCA adder(a,mux21out,f[2],rcaout,cout);
+mux2to1 mux21(b,(~b),f[2],mux21out);
+RCA adder(a,mux21out,f[2],rcaout);
 zeroextender ze(rcaout[31],zeroex);
 mux4to1 mux41(a & mux21out, a | mux21out, rcaout,zeroex,f[1:0],mux41out);
 
-assign y = mux41out;
+assign y =  mux41out;
 assign zero = ~(|mux41out);
 
 endmodule 
