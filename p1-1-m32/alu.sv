@@ -5,13 +5,13 @@ module mux2to1_32bit(input wire [31:0] i0, i1,
   assign out = s ? i1 : i0;
 endmodule
 
-module mux4to1(input wire [31:0] i0, i1, i2, i3,
+module mux4to1_32bit(input wire [31:0] i0, i1, i2, i3,
                 input wire [1:0] s,
                 output wire [31:0] out); 
   wire [31:0] m1_out, m2_out;
-  mux2to1 m1(i0, i1, s[0], m1_out);
-  mux2to1 m2(i2, i3, s[0], m2_out);
-  mux2to1 m3(m1_out, m2_out, s[1], out);
+  mux2to1_32bit m1(i0, i1, s[0], m1_out);
+  mux2to1_32bit m2(i2, i3, s[0], m2_out);
+  mux2to1_32bit m3(m1_out, m2_out, s[1], out);
 endmodule
 
 module RCA(input wire [31:0] a, b,
@@ -24,7 +24,6 @@ module RCA(input wire [31:0] a, b,
   // cout concatenated with s is over 33 bits
 endmodule
 
-
 module zeroextender(input wire a, output wire [31:0] aex);
   assign aex [0]= a;
   assign aex [31:1] = 30'b0;
@@ -34,17 +33,17 @@ module ALU(input logic [31:0] a, b,
            input logic [2:0] f,
            output logic [31:0] y,
            output logic zero);
-  wire [31:0]mux21out;
-  wire [31:0]mux41out;
-  wire [31:0]rcaout;
+  wire [31:0] bb;
+  wire [31:0] mux41out;
+  wire [31:0] rcaout;
   wire cout;
-  wire [31:0]zeroex;
+  wire [31:0] zeroex;
 
-  mux2to1 mux21(b,(~b),f[2],mux21out);
-  RCA adder(a,mux21out,f[2],rcaout);
-  zeroextender ze(rcaout[31],zeroex);
-  mux4to1 mux41(a & mux21out, a | mux21out, rcaout,zeroex,f[1:0],mux41out);
+  mux2to1_32bit bbmux(b, ~b, f[2], bb);
+  RCA adder(a, mux21out, f[2], rcaout);
+  zeroextender ze(rcaout[31], zeroex);
+  mux4to1_32bit mux41(a & mux21out, a | mux21out, rcaout,zeroex,f[1:0],mux41out);
 
-  assign y =  mux41out;
+  assign y = mux41out;
   assign zero = ~(|mux41out);
 endmodule 
