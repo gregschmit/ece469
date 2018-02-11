@@ -25,8 +25,8 @@ module RCA(input wire [31:0] a, b,
 endmodule
 
 module zeroextender(input wire a, output wire [31:0] aex);
-  assign aex [0]= a;
-  assign aex [31:1] = 30'b0;
+  assign aex[0] = a;
+  assign aex[31:1] = 30'b0;
 endmodule
 
 module ALU(input logic [31:0] a, b, 
@@ -40,10 +40,9 @@ module ALU(input logic [31:0] a, b,
   wire [31:0] zeroex;
 
   mux2to1_32bit bbmux(b, ~b, f[2], bb);
-  RCA adder(a, mux21out, f[2], rcaout);
+  RCA adder(a, bb, f[2], rcaout);
   zeroextender ze(rcaout[31], zeroex);
-  mux4to1_32bit mux41(a & mux21out, a | mux21out, rcaout,zeroex,f[1:0],mux41out);
+  mux4to1_32bit ymux(a & mux21out, a | mux21out, rcaout, zeroex, f[1:0], y);
 
-  assign y = mux41out;
-  assign zero = ~(|mux41out);
+  assign zero = ~(|y);
 endmodule 
