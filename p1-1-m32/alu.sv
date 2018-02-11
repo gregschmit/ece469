@@ -7,7 +7,7 @@ endmodule
 
 module mux4to1_32bit(input wire [31:0] i0, i1, i2, i3,
                 input wire [1:0] s,
-                output wire [31:0] out); 
+                output wire [31:0] out);
   wire [31:0] m1_out, m2_out;
   mux2to1_32bit m1(i0, i1, s[0], m1_out);
   mux2to1_32bit m2(i2, i3, s[0], m2_out);
@@ -29,7 +29,7 @@ module zeroextender(input wire a, output wire [31:0] aex);
   assign aex[31:1] = 30'b0;
 endmodule
 
-module ALU(input logic [31:0] a, b, 
+module ALU(input logic [31:0] a, b,
            input logic [2:0] f,
            output logic [31:0] y,
            output logic zero);
@@ -45,4 +45,4 @@ module ALU(input logic [31:0] a, b,
   mux4to1_32bit ymux(a & mux21out, a | mux21out, rcaout, zeroex, f[1:0], y);
 
   assign zero = ~(|y);
-endmodule 
+endmodule
