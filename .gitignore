@@ -1,3 +1,8 @@
+# latex stuff
+*.pdf
+*.aux
+*.log
+
 .DS_Store
 *.zip
 *.bak
