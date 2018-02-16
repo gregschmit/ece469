@@ -4,7 +4,7 @@
 module sqm_testbench();
 
   // testbench dict
-  parameter int debug = 2;
+  parameter int debug = 2; /**< debug info level (0=summary, 1=lines, 2=full) */
   parameter int lines = 3;
   parameter int bits = 28;
   logic [bits-1:0] testvector[lines-1:0];
