@@ -11,7 +11,7 @@ module sqm_testbench();
 
   // sqm device dict
   logic [7:0] a;
-  logic [4:0] b;
+  logic [3:0] b;
   logic [7:0] c;
   logic [7:0] y;
   sqm dut(a,b,c,y);
@@ -19,23 +19,23 @@ module sqm_testbench();
   logic [7:0] exp_y;
 
   // test bench
+  int i;
+  int fails = 0;
   initial begin
     $readmemh("./sqm.tv", testvector);
-    int i;
-    int f = 0;
     for (i=0; i<lines; i++) begin
       // parse vector data and wait for signal propogation
-      {a, b, expected_c, expected_y} = testvector[i];
+      {a, b, exp_c, exp_y} = testvector[i];
       #10;
       if (debug >= 2)
-        $display("%d: (a=%h b=%h) :: c=%h:%h y=%h:%h",i+1,a,b,exp_c,c,exp_y,y);
+        $display("%2d: (a=%h b=%h) :: c=%h:%h y=%h:%h",i+1,a,b,exp_c,c,exp_y,y);
       if (exp_c != c || exp_y != y) begin
         if (debug >= 1)
           $display("Failure on line %i", i+1);
-        f++;
+        fails++;
       end
     end
-    $display("%i failures out of %i tests", f, lines);
+    $display("%2d failures out of %0d tests", fails, lines);
   end
 
 endmodule
