@@ -31,7 +31,7 @@ module sqm_testbench();
         $display("%2d: (a=%h b=%h) :: c=%h:%h y=%h:%h",i+1,a,b,exp_c,c,exp_y,y);
       if (exp_c != c || exp_y != y) begin
         if (debug >= 1)
-          $display("Failure on line %i", i+1);
+          $display("Failure on line %0d", i+1);
         fails++;
       end
     end
