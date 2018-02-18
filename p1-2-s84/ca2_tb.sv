@@ -5,8 +5,8 @@ module ca2_testbench();
 
   // testbench dict
   parameter int debug = 2; /**< debug info level (0=summary, 1=lines, 2=full) */
-  parameter int bits = 12;
-  parameter int lines = 4;
+  parameter int bits = 20;
+  parameter int lines = 10;
   logic [bits-1:0] testvector[lines-1:0];
 
   // ca2 device dict
@@ -23,7 +23,7 @@ module ca2_testbench();
     $readmemb("./ca2.tv", testvector);
     for (i=0; i<lines; i++) begin
       // parse vector data and wait for signal propogation
-      {a, exp_y} = testvector[i];
+      {a, b, exp_y} = testvector[i];
       #10;
       if (debug >= 2)
         $display("%2d: (a=%b b=%b) :: y=%b:%b", i+1, a, b, exp_y, y);
