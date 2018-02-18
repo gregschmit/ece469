@@ -13,7 +13,7 @@ module serial1s_testbench();
   logic [7:0] a;
   logic [3:0] y;
   serial1s dut(a, y);
-  logic [7:0] exp_y;
+  logic [3:0] exp_y;
 
   // test bench
   int i;
