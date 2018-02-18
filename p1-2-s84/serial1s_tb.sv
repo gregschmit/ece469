@@ -5,7 +5,7 @@ module serial1s_testbench();
 
   // testbench dict
   parameter int debug = 2; /**< debug info level (0=summary, 1=lines, 2=full) */
-  parameter int bits = 8;
+  parameter int bits = 12;
   parameter int lines = 4;
   logic [bits-1:0] testvector[lines-1:0];
 
@@ -25,7 +25,7 @@ module serial1s_testbench();
       {a, exp_y} = testvector[i];
       #10;
       if (debug >= 2)
-        $display("%2d: (a=%h) :: y=%h:%h", i+1, a, exp_y, y);
+        $display("%2d: (a=%b) :: y=%b:%b", i+1, a, exp_y, y);
       if (exp_y != y) begin
         if (debug >= 1)
           $display("Failure on line %0d", i+1);
