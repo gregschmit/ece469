@@ -9,7 +9,7 @@ module serial1s_testbench();
   parameter int lines = 4;
   logic [bits-1:0] testvector[lines-1:0];
 
-  // sqm device dict
+  // device dict
   logic [7:0] a;
   logic [3:0] y;
   serial1s dut(a, y);
