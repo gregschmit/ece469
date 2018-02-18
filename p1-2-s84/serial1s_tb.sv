@@ -19,7 +19,7 @@ module serial1s_testbench();
   int i;
   int fails = 0;
   initial begin
-    $readmemb("./contone.tv", testvector);
+    $readmemb("./serial1s.tv", testvector);
     for (i=0; i<lines; i++) begin
       // parse vector data and wait for signal propogation
       {a, exp_y} = testvector[i];
