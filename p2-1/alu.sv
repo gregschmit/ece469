@@ -31,6 +31,7 @@ endmodule
 
 module alu(input logic [31:0] a, b,
            input logic [2:0] f,
+           input logic zero_negate,
            output logic [31:0] y,
            output logic zero);
   wire [31:0] bb;
@@ -43,5 +44,5 @@ module alu(input logic [31:0] a, b,
   zero_extender ze(s[31], zeroex);
   mux4to1_32bit ymux(a & bb, a | bb, s, zeroex, f[1:0], y);
 
-  assign zero = ~(|y);
+  assign zero = (~(|y)) ^ zero_negate;
 endmodule

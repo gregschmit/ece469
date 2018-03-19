@@ -1,30 +1,32 @@
 
 module maindec(input logic [5:0] op,
-               output logic memtoreg, memwrite, branch, alusrc, regdst,
+               output logic memtoreg, memwrite, branch, zneg, alusrc, regdst,
                output logic regwrite, jump,
                output logic [1:0] aluop);
   logic [8:0] controls;
 
-  assign {regwrite, regdst, alusrc, branch, memwrite, memtoreg, jump, aluop} = controls;
+  assign {regwrite, regdst, alusrc, branch, memwrite, memtoreg, jump, aluop, zneg} = controls;
 
   always_comb begin
     case(op)
       6'b000000:
-        controls <= 9'b110000010; // RTYPE
+        controls <= 9'b1100000100; // RTYPE
       6'b100011:
-        controls <= 9'b101001000; // LW
+        controls <= 9'b1010010000; // LW
       6'b101011:
-        controls <= 9'b001010000; // SW
+        controls <= 9'b0010100000; // SW
       6'b000100:
-        controls <= 9'b000100001; // BEQ
+        controls <= 9'b0001000010; // BEQ
       6'b001000:
-        controls <= 9'b101000000; // ADDI
+        controls <= 9'b1010000000; // ADDI
       6'b000010:
-        controls <= 9'b000000100; // J
+        controls <= 9'b0000001000; // J
       6'b001101:
-        controls <= 9'b101000011; // ORI
+        controls <= 9'b1010000110; // ORI
+      6'b000101:
+        controls <= 9'b0001000011; // BNE
       default:
-        controls <= 9'bxxxxxxxxx; // illegal op
+        controls <= 9'bxxxxxxxxxx; // illegal op
     endcase
   end
 
