@@ -3,7 +3,7 @@ module imem(input logic [5:0] a,
             output logic [31:0] rd);
   logic [31:0] RAM[63:0];
   initial
-    $readmemh("./memfile.dat", RAM);
+    $readmemh("./prog2", RAM);
 
   assign rd = RAM[a]; // word aligned
 endmodule
@@ -54,7 +54,7 @@ module mips_tb();
   // check results
   always @(negedge clk) begin
     if (memwrite) begin
-      if (dataadr===84 & writedata===7) begin
+      if (dataadr===84 & writedata===15) begin
         $display("Simulation succeeded");
         $stop;
       end else if (dataadr !== 80) begin
