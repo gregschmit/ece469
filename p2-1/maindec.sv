@@ -10,23 +10,23 @@ module maindec(input logic [5:0] op,
   always_comb begin
     case(op)
       6'b000000:
-        controls <= 9'b1100000100; // RTYPE
+        controls <= 10'b1100000100; // RTYPE
       6'b100011:
-        controls <= 9'b1010010000; // LW
+        controls <= 10'b1010010000; // LW
       6'b101011:
-        controls <= 9'b0010100000; // SW
+        controls <= 10'b0010100000; // SW
       6'b000100:
-        controls <= 9'b0001000010; // BEQ
+        controls <= 10'b0001000010; // BEQ
       6'b001000:
-        controls <= 9'b1010000000; // ADDI
+        controls <= 10'b1010000000; // ADDI
       6'b000010:
-        controls <= 9'b0000001000; // J
+        controls <= 10'b0000001000; // J
       6'b001101:
-        controls <= 9'b1010000110; // ORI
+        controls <= 10'b1010000110; // ORI
       6'b000101:
-        controls <= 9'b0001000011; // BNE
+        controls <= 10'b0001000011; // BNE
       default:
-        controls <= 9'bxxxxxxxxxx; // illegal op
+        controls <= 10'bxxxxxxxxxx; // illegal op
     endcase
   end
 
