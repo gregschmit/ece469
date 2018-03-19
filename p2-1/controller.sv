@@ -1,6 +1,7 @@
 
 module controller(input logic [5:0] op, funct,
-                  input logic zneg, zero,
+                  input logic zero,
+                  output logic zneg,
                   output logic memtoreg, memwrite, pcsrc, alusrc, regdst,
                   output logic regwrite, jump,
                   output logic [2:0] alucontrol);
