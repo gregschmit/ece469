@@ -12,7 +12,7 @@ module lfsr_testbench();
   lfsr dut(taps, d_in, d_out);
 
   initial begin
-    {taps, d_out} = b'010010111111111; #10;
-    $display("d_out = %4d\n", d_out);
+    {taps, d_in} = 'b010010111111111; #10;
+    $display("d_out = %b\n", d_out);
   end
 endmodule
