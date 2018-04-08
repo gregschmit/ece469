@@ -2,17 +2,20 @@
 module lfsr(input logic clk, run, seed, init_tap, [7:0] seed_data, [6:0] taps,
             output logic [7:0] q);
 
-  logic r[8];
-  logic t[7];
+  logic [7:0] r;
+  logic [6:0] t;
 
-  int i;
-  always_ff @(posedge clk, seed) begin
+  int i = 0;
+  always_ff @(posedge clk) begin
     if (seed) begin
-      for (i=0; i<7; i++) begin
+      for (i=0; i<8; i++) begin
         r[i] = seed_data[i];
+      end
+    end
+    if (init_tap) begin
+      for (i=0; i<7; i++) begin
         t[i] = taps[i];
       end
-      r[7] = seed_data[7];
     end
     if (!seed && run) begin
       r[7] <= r[0];

@@ -10,21 +10,23 @@ module lfsr_testbench();
   logic [6:0] taps;
   logic [7:0] seed_data;
   logic [7:0] q;
-  lfs dut(clk, run, seed, init_tap, seed_data, taps, q);
+  lfsr dut(clk, run, seed, init_tap, seed_data, taps, q);
 
   always begin
     clk <= 1; # 5; clk <= 0; # 5;
   end
-  int i;
-  logic [18:0] data [5] = {
-    {'b011, 'b11111111, 'b0100101},
-    {'b100, 'b11111111, 'b0100101},
-    {'b100, 'b11111111, 'b0100101},
-    {'b001, 'b11111111, 'b0100101},
-  }
+
+  logic [17:0] data [4] = {
+    {3'b011, 8'b11111111, 7'b0100101},
+    {3'b100, 8'b11111111, 7'b0100101},
+    {3'b100, 8'b11111111, 7'b0100101},
+    {3'b001, 8'b11100111, 7'b0111101}
+  };
   always @(negedge clk) begin
     if (i < 5) begin
-      {run, seed, init_tap, [7:0] seed_data, [6:0] taps} = data[i];
+      if (i == 4) $stop;
+      {run, seed, init_tap, seed_data, taps} = data[i];
     end
+    i++;
   end
 endmodule
