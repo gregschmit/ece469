@@ -1,5 +1,5 @@
 
-module lfsr(input logic [6:0] taps, [7:0] d_in,
+module lfs(input logic [6:0] taps, [7:0] d_in,
             output logic [7:0] d_out);
 
   int i;

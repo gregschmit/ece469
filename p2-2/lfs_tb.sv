@@ -1,7 +1,7 @@
 
-`include "lfsr.sv"
+`include "lfs.sv"
 
-module lfsr_testbench();
+module lfs_testbench();
 
   // dict
   int i;
@@ -9,7 +9,7 @@ module lfsr_testbench();
   logic [6:0] taps;
   logic [7:0] d_in;
   logic [7:0] d_out;
-  lfsr dut(taps, d_in, d_out);
+  lfs dut(taps, d_in, d_out);
 
   initial begin
     {taps, d_in} = 'b010010111111111; #10;
