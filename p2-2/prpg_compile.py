@@ -70,7 +70,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Compile instructions to PRPG processor machine code.')
     parser.add_argument('-f', '--file', help='file containing source')
     args = parser.parse_args()
-    print(args)
 
     if args.file:
         print(compile_file(args.file))

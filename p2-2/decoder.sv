@@ -2,11 +2,11 @@
 module decoder(input logic clk, [10:0] instr,
                output logic reg_wr, add, lfsr_seed, lfsr_tap, lfsr_lmem,
                output logic lfsr_run, lfsr_seed_mem, mem_wr, halt,
-               output logic [7:0] immi [6:0] lfsr_taps);
+               output logic [7:0] immi, [6:0] lfsr_taps);
 
   // dict
   logic [7:0] controls;
-  logic [2:0] op = instr[2:0]
+  logic [2:0] op = instr[2:0];
 
   // easy output calc
   assign lfsr_taps = instr[6:0];
@@ -17,21 +17,21 @@ module decoder(input logic clk, [10:0] instr,
   always_comb begin
     case(op)
       3'b000:
-        controls <= 5'b01000010; // st
+        controls <= 8'b01000010; // st
       3'b001:
-        controls <= 5'b01101000; // ld
+        controls <= 8'b01101000; // ld
       3'b010:
-        controls <= 5'b10000000; // init_addr
+        controls <= 8'b10000000; // init_addr
       3'b011:
-        controls <= 5'b11000000; // add_addr
+        controls <= 8'b11000000; // add_addr
       3'b100:
-        controls <= 5'b00010000; // config
+        controls <= 8'b00010000; // config
       3'b101:
-        controls <= 5'b00100000; // init_L
+        controls <= 8'b00100000; // init_L
       3'b110:
-        controls <= 5'b00000100; // run
+        controls <= 8'b00000100; // run
       3'b111:
-        controls <= 5'b00000001; // halt
+        controls <= 8'b00000001; // halt
     endcase
   end
 

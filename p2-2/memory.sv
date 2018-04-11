@@ -5,7 +5,7 @@ module memory(input logic clk, we,
 
   logic [7:0] RAM [255:0];
 
-  assign rd = RAM[a];
+  assign rd = RAM[addr];
 
   always_ff @(posedge clk)
     if (we) RAM[addr] <= wd;
