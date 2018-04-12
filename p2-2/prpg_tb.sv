@@ -1,32 +1,29 @@
 
-module imem(input logic [5:0] a,
+module imem(input logic [7:0] a,
             output logic [31:0] rd);
-  logic [31:0] RAM[63:0];
+  logic [10:0] RAM[256:0];
   initial
-    $readmemh("./prog3", RAM);
+    $readmemb("./prog1", RAM);
 
   assign rd = RAM[a]; // word aligned
 endmodule
 
 module top(input logic clk, reset,
-           output logic [31:0] writedata, dataadr,
-           output logic memwrite);
+           output logic halt);
 
-  logic [7:0] pc, instr, lfsr_out, mem_out, r_addr, mem_addr;
-  prpg prpg(clk, reset, pc, instr, memwrite, dataadr,
-    writedata, readdata);
-  imem imem(pc[7:2], instr);
-  dmem dmem(clk, memwrite, dataadr, writedata, readdata);
+  logic [7:0] pc, [10:0] instr;
+  logic reg_wr, add, lfsr_seed, lfsr_tap, lfsr_lmem, lfsr_run, mem_wr;
+  prpg prpg(clk, reset, pc, instr, reg_wr, add, lfsr_seed, lfsr_tap, lfsr_lmem, lfsr_run, mem_wr, halt);
+  imem imem(pc, instr);
 endmodule
 
 module mips_tb();
   logic clk;
   logic reset;
-  logic [31:0] writedata, dataadr;
-  logic memwrite;
+  logic halt;
 
   // instantiate device to be tested
-  top dut (clk, reset, writedata, dataadr, memwrite);
+  top dut (clk, reset, halt);
 
   // initialize test
   initial begin
@@ -40,14 +37,9 @@ module mips_tb();
 
   // check results
   always @(negedge clk) begin
-    if (memwrite) begin
-      if (dataadr===84 && writedata===15) begin
-        $display("Simulation succeeded");
-        $stop;
-      end else if (dataadr !== 80) begin
-        $display("Simulation failed");
-        $stop;
-      end
+    if (halt) begin
+      $display("Simulation halted");
+      $stop;
     end
   end
 endmodule
