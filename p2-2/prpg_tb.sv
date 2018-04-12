@@ -1,6 +1,6 @@
 
 module imem(input logic [7:0] a,
-            output logic [31:0] rd);
+            output logic [10:0] rd);
   logic [10:0] RAM[256:0];
   initial
     $readmemb("./prog1", RAM);
@@ -9,22 +9,24 @@ module imem(input logic [7:0] a,
 endmodule
 
 module top(input logic clk, reset,
-           output logic halt);
+           output logic halt,
+           output logic [7:0] pc,
+           output logic [10:0] instr);
 
-  logic [7:0] pc;
-  logic [10:0] instr;
   logic reg_wr, add, lfsr_seed, lfsr_tap, lfsr_lmem, lfsr_run, mem_wr;
-  prpg prpg(clk, reset, pc, instr, reg_wr, add, lfsr_seed, lfsr_tap, lfsr_lmem, lfsr_run, mem_wr, halt);
   imem imem(pc, instr);
+  prpg prpg(clk, reset, pc, instr, reg_wr, add, lfsr_seed, lfsr_tap, lfsr_lmem, lfsr_run, mem_wr, halt);
 endmodule
 
 module prpg_testbench();
   logic clk;
   logic reset;
   logic halt;
+  logic [7:0] pc;
+  logic [10:0] instr;
 
   // instantiate device to be tested
-  top dut (clk, reset, halt);
+  top dut (clk, reset, halt, pc, instr);
 
   // initialize test
   initial begin

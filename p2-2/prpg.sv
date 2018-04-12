@@ -7,14 +7,16 @@ module prpg(input logic clk, reset,
 
   // pc
   always_ff @(posedge clk, posedge reset) begin
-    if (reset) pc <= 0;
-    else pc <= pc + 1;
+    if (reset) begin
+      pc <= 0;
+    end else if (instr[10:8] != 3'b111)
+      pc <= pc + 1;
   end
 
   // decoder
   logic [7:0] immi;
   logic [6:0] lfsr_taps;
-  decoder dec(clk, instr, reg_wr, add, lfsr_seed, lfsr_tap, lfsr_lmem, lfsr_run, mem_wr, halt, immi, lfsr_taps);
+  decoder dec(clk, reset, instr, reg_wr, add, lfsr_seed, lfsr_tap, lfsr_lmem, lfsr_run, mem_wr, halt, immi, lfsr_taps);
 
   // r_addr
   logic [7:0] r_addr;
