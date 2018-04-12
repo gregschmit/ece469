@@ -11,13 +11,14 @@ endmodule
 module top(input logic clk, reset,
            output logic halt);
 
-  logic [7:0] pc, [10:0] instr;
+  logic [7:0] pc;
+  logic [10:0] instr;
   logic reg_wr, add, lfsr_seed, lfsr_tap, lfsr_lmem, lfsr_run, mem_wr;
   prpg prpg(clk, reset, pc, instr, reg_wr, add, lfsr_seed, lfsr_tap, lfsr_lmem, lfsr_run, mem_wr, halt);
   imem imem(pc, instr);
 endmodule
 
-module mips_tb();
+module prpg_testbench();
   logic clk;
   logic reset;
   logic halt;
