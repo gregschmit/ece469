@@ -1,15 +1,10 @@
-config_L 0100101;
-init_L 11111111;
+config_L 1001101;
+init_L 00111000;
 run_L;
-run_L;
-init_addr 00001001;
-run_L;
+Init_addr 01010101;
 st_M_L;
 run_L;
-add_addr 11111110;
-st_M_L;
-add_addr 00000010;
-ld_M_L;
 run_L;
-halt;
-
+add_addr 10011011
+st_M_L;
+halt; 

@@ -131,7 +131,7 @@ if __name__ == '__main__':
     parser.set_defaults(debug=False)
     args = parser.parse_args()
 
-    instructions = subprocess.run(['./prpg_compile.py', '-f', args.file], stdout=subprocess.PIPE)
+    instructions = subprocess.run(['./prpg_compiler.py', '-f', args.file], stdout=subprocess.PIPE)
 
     cpu = PRPG(instructions.stdout.decode().strip().split(), args.debug)
 
