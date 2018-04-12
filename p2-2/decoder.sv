@@ -1,7 +1,8 @@
 
-module decoder(input logic clk, [10:0] instr,
+module decoder(input logic clk,
+               input logic [10:0] instr,
                output logic reg_wr, add, lfsr_seed, lfsr_tap, lfsr_lmem,
-               output logic lfsr_run, lfsr_seed_mem, mem_wr, halt,
+               output logic lfsr_run, mem_wr, halt,
                output logic [7:0] immi, [6:0] lfsr_taps);
 
   // dict
