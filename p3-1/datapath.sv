@@ -33,13 +33,41 @@ module datapath(input logic clk, reset,
   // such as pcreg (PC register), wdmux (Write Data Mux), etc.
   // so it's easier to understand.
 
-  // pc
+  // IF
   always_ff @(posedge clk, posedge reset) begin
     if (reset) pc <= 0;
     else pc <= pcnext;
   end
+  assign adr = iord ? aluout : pc;
 
+  // ID/R
+  always_ff @(posedge clk) begin
+    if (irwrite) instr <= readdata;
+    data <= readdata;
+  end
+  assign writereg = regdst ? instr[15:11] : instr[20:16];
+  logic [31:0]result = memtoreg ? data : aluout;
+  logic [31:0] rd_a, rd_b;
+  regfile rf(clk, regwrite, instr[25:21], instr[20:16], writereg, result,
+    rd_a, rd_b);
+  always_ff @(posedge clk) begin
+    a <= rd_a;
+    writedata <= rd_b;
+  end
 
+  // EX
+  assign srca = alusrca ? a : pc;
+  logic [31:0] signimm;
+  logic [31:0] signimm_shifted = signimm << 2;
+  signext se(instr[15:0], signimm);
+  mux4 #(32) srcbmux(writedata, 4, signimm, signimm_shifted, alusrcb, srcb);
+  alu alu(srca, srcb, alucontrol, aluresult, zero);
+  always_ff @(posedge clk) begin
+    aluout <= aluresult;
+  end
+  logic [27:0] jumpshift = {2'b00, instr[25:0]] << 2;
+  logic [31:0] pcjump = {pc[31:28], jumpshift}
+  pcmux #(32) mux3(aluresult, aluout, pcjump, pcsrc, pcnext);
 
   // datapath
 endmodule
