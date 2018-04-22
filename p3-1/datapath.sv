@@ -66,7 +66,7 @@ module datapath(input logic clk, reset,
   end
   logic [27:0] jumpshift = {2'b00, instr[25:0]} << 2;
   logic [31:0] pcjump = {pc[31:28], jumpshift};
-  pcmux #(32) mux3(aluresult, aluout, pcjump, pcsrc, pcnext);
+  mux3 #(32) pcmux(aluresult, aluout, pcjump, pcsrc, pcnext);
 
   // datapath
 endmodule
