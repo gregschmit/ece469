@@ -11,14 +11,13 @@ module mips(input logic clk, reset,
  logic [5:0]   op, funct;
 
  controller c(clk, reset, op, funct, zero,
-            pcen, memwrite, irwrite, regwrite,
-            alusrca, iord, memtoreg, regdst,
-            alusrcb, pcsrc, alucontrol);
-datapath dp(clk, reset,
-            pcen, irwrite, regwrite,
-            alusrca, iord, memtoreg, regdst,
-            alusrcb, pcsrc, alucontrol,
-            op, funct, zero,
-            adr, writedata, readdata);
+              pcen, memwrite, irwrite, regwrite,
+              alusrca, iord, memtoreg, regdst,
+              alusrcb, pcsrc, alucontrol);
+ datapath dp(clk, reset,
+             pcen, irwrite, regwrite,
+             alusrca, iord, memtoreg, regdst,
+             alusrcb, pcsrc, alucontrol,
+             op, funct, zero,
+             adr, writedata, readdata);
 endmodule
-
