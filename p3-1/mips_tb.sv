@@ -1,23 +1,3 @@
-module mux3 #(parameter WIDTH = 8)
-            (input logic [WIDTH-1:0] d0, d1, d2,
-             input logic [1:0] s,
-             output logic [WIDTH-1:0] y);
-  assign #1 y = s[1] ? d2 : (s[0] ? d1 : d0);
-endmodule
-
-module mux4 #(parameter WIDTH = 8)
-            (input logic [WIDTH-1:0] d0, d1, d2, d3,
-             input logic [1:0] s,
-             output logic [WIDTH-1:0] y);
-
-     always_comb
-        case(s)
-            2'b00: y = d0;
-            2'b01: y = d1;
-            2'b10: y = d2;
-            2'b11: y = d3;
-          endcase
-endmodule
 
 module mem(input logic clk, we,
            input logic [31:0] a, wd,
@@ -39,7 +19,7 @@ module mem(input logic clk, we,
  always_ff @(posedge clk)
   if (we)
     RAM[a[31:2]] <= wd;
-Endmodule
+endmodule
 
 module top(input logic clk, reset,
            output logic [31:0] writedata, adr,
@@ -53,4 +33,3 @@ module top(input logic clk, reset,
  // memory
  mem mem(clk, memwrite, adr, writedata, readdata);
 endmodule
-
