@@ -9,7 +9,7 @@ module mem(input logic clk, we,
 
  initial
   begin
-    $readmemh("test.tv",RAM);
+    $readmemh("./test.tv",RAM);
       // "memfile.dat" contains your instructions in hex
       // you must create this file
   end
