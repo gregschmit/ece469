@@ -57,7 +57,7 @@ module datapath(input logic clk, reset,
 
   // EX
   assign srca = alusrca ? a : pc;
-  signimmsh = signimm << 2;
+  assign signimmsh = signimm << 2;
   signext se(instr[15:0], signimm);
   mux4 #(32) srcbmux(writedata, 4, signimm, signimm_shifted, alusrcb, srcb);
   alu alu(srca, srcb, alucontrol, aluresult, zero);
