@@ -83,9 +83,9 @@ module maindec(input logic clk, reset,
       DECODE: controls = 15'h0030;
       MEMADR: controls = 15'h0420;      //NOTE: THIS HAS THE SAME COMMAND SIGNALS AS ADDIEX
       MEMRD: controls = 15'h0100;
-      MEMWB = controls = 15'h0880;
+      MEMWB : controls = 15'h0880;
       MEMWR: controls = 15'h2100;
-      RTYPEEX: controls = 15'h0400;
+      RTYPEEX: controls = 15'h0402;
       RTYPEWB: controls = 15'h0840;
       BEQEX: controls = 15'h0605;
       ADDIEX: controls = 15'0420;       //NOTE: THIS HAS THE SAME COMMAND SIGNALS AS MEMADR
