@@ -58,7 +58,7 @@ module maindec(input logic clk, reset,
         endcase
         MEMRD: nextstate = MEMWB;
         MEMWB: nextstate = FETCH;
-        MEMWR: nextstate = FETCH
+        MEMWR: nextstate = FETCH;
         RTYPEEX: nextstate = RTYPEWB;
         RTYPEWB: nextstate = FETCH;
         BEQEX: nextstate = FETCH;
@@ -88,9 +88,9 @@ module maindec(input logic clk, reset,
       RTYPEEX: controls = 15'h0402;
       RTYPEWB: controls = 15'h0840;
       BEQEX: controls = 15'h0605;
-      ADDIEX: controls = 15'0420;       //NOTE: THIS HAS THE SAME COMMAND SIGNALS AS MEMADR
-      ADDIWB: controls = 15'0800;
-      JEX: controls = 15'4008;
+      ADDIEX: controls = 15'h0420;       //NOTE: THIS HAS THE SAME COMMAND SIGNALS AS MEMADR
+      ADDIWB: controls = 15'h0800;
+      JEX: controls = 15'h4008;
  default: controls = 15'hxxxx; // should never happen
     endcase
 endmodule
