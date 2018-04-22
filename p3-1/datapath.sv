@@ -59,7 +59,7 @@ module datapath(input logic clk, reset,
   assign srca = alusrca ? a : pc;
   assign signimmsh = signimm << 2;
   signext se(instr[15:0], signimm);
-  mux4 #(32) srcbmux(writedata, 4, signimm, signimm_shifted, alusrcb, srcb);
+  mux4 #(32) srcbmux(writedata, 4, signimm, signimmsh, alusrcb, srcb);
   alu alu(srca, srcb, alucontrol, aluresult, zero);
   always_ff @(posedge clk) begin
     aluout <= aluresult;
