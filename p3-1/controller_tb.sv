@@ -8,7 +8,8 @@ module controller_testbench();
 
   // output
   logic pcen, memwrite, irwrite, regwrite, alusrca, iord, memtoreg, regdst;
-  logic [1:0] alusrcb, pcsrc, [2:0] alucontrol;
+  logic [1:0] alusrcb, pcsrc;
+  logic [2:0] alucontrol;
 
   // change first bracket numbers to reflect size of line
   // change second bracket numbers to reflect the number of lines
