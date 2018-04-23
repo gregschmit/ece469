@@ -25,7 +25,9 @@ module controller_testbench();
   initial begin
     reset <= 1; # 22; reset <= 0;
     $readmemh("./controller.tv", testvector);
-    for (num = 0; num<60; num++) begin
+    for (num = 0; num<=60; num++) begin
+      if (num == 60)
+        $stop;
       {op, funct, zero} = testvector[num];#10;
       $display("testing op=%b funct=%b zero=%b", op, funct, zero);
     end
