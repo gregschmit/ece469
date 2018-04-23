@@ -30,43 +30,45 @@ module maindec(input logic clk, reset,
  logic [14:0] controls;
 
 
-// state register
- always_ff @(posedge clk or posedge reset)
+  // state register
+  always_ff @(posedge clk or posedge reset)
     if(reset) state <= FETCH;
     else state <= nextstate;
 
- // ADD CODE HERE
- // Finish entering the next state logic below. The first
- // two states, FETCH and DECODE, have been completed for you.
+  // ADD CODE HERE
+  // Finish entering the next state logic below. The first
+  // two states, FETCH and DECODE, have been completed for you.
 
- // next state logic
- always_comb
+  // next state logic
+  always_comb
     case(state)
       FETCH: nextstate = DECODE;
       DECODE: case(op)
-            LW: nextstate = MEMADR;
-            SW: nextstate = MEMADR;
-            RTYPE: nextstate = RTYPEEX;
-            BEQ: nextstate = BEQEX;
-            ADDI: nextstate = ADDIEX;
-            J: nextstate = JEX;
-            default: nextstate = 4'bx; // should never happen
- endcase
-        MEMADR: case(op)
-            LW: nextstate = MEMRD;
-            SW: nextstate = MEMWR;
+          LW: nextstate = MEMADR;
+          SW: nextstate = MEMADR;
+          RTYPE: nextstate = RTYPEEX;
+          BEQ: nextstate = BEQEX;
+          ADDI: nextstate = ADDIEX;
+          J: nextstate = JEX;
+          default: nextstate = 4'bx; // should never happen
         endcase
-        MEMRD: nextstate = MEMWB;
-        MEMWB: nextstate = FETCH;
-        MEMWR: nextstate = FETCH;
-        RTYPEEX: nextstate = RTYPEWB;
-        RTYPEWB: nextstate = FETCH;
-        BEQEX: nextstate = FETCH;
-        ADDIEX: nextstate = ADDIWB;
-        ADDIWB: nextstate = FETCH;
-        JEX: nextstate = FETCH;
- default: nextstate = 4'bx; // should never happen
- endcase
+      MEMADR: case(op)
+          LW: nextstate = MEMRD;
+          SW: nextstate = MEMWR;
+        endcase
+      MEMRD: nextstate = MEMWB;
+      MEMWB: nextstate = FETCH;
+      MEMWR: nextstate = FETCH;
+      RTYPEEX: nextstate = RTYPEWB;
+      RTYPEWB: nextstate = FETCH;
+      BEQEX: nextstate = FETCH;
+      ADDIEX: nextstate = ADDIWB;
+      ADDIWB: nextstate = FETCH;
+      JEX: nextstate = FETCH;
+      default: nextstate = 4'bx; // should never happen
+    endcase
+  end
+
  // output logic
   assign {pcwrite, memwrite, irwrite, regwrite,
           alusrca, branch, iord, memtoreg, regdst,
@@ -77,7 +79,7 @@ module maindec(input logic clk, reset,
  // output logic for the first two states, S0 and S1,
  // have been completed for you.
 
- always_comb
+  always_comb
     case(state)
       FETCH: controls = 15'h5010;
       DECODE: controls = 15'h0030;
@@ -91,6 +93,7 @@ module maindec(input logic clk, reset,
       ADDIEX: controls = 15'h0420;       //NOTE: THIS HAS THE SAME COMMAND SIGNALS AS MEMADR
       ADDIWB: controls = 15'h0800;
       JEX: controls = 15'h4008;
- default: controls = 15'hxxxx; // should never happen
+      default: controls = 15'hxxxx; // should never happen
     endcase
+  end
 endmodule
