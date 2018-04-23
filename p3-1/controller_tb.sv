@@ -24,7 +24,7 @@ module controller_testbench();
 
   initial begin
     reset <= 1; # 22; reset <= 0;
-    $readmemh("./controller.tv", testvector);
+    $readmemb("./controller.tv", testvector);
     for (num = 0; num<=60; num++) begin
       if (num == 60)
         $stop;
