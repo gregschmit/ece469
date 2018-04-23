@@ -40,7 +40,7 @@ module maindec(input logic clk, reset,
   // two states, FETCH and DECODE, have been completed for you.
 
   // next state logic
-  always_comb
+  always_comb begin
     case(state)
       FETCH: nextstate = DECODE;
       DECODE: case(op)
@@ -79,7 +79,7 @@ module maindec(input logic clk, reset,
  // output logic for the first two states, S0 and S1,
  // have been completed for you.
 
-  always_comb
+  always_comb begin
     case(state)
       FETCH: controls = 15'h5010;
       DECODE: controls = 15'h0030;
