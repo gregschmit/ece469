@@ -46,7 +46,8 @@ module datapath(input logic clk, reset,
     data <= readdata;
   end
   assign writereg = regdst ? instr[15:11] : instr[20:16];
-  logic [31:0]result = memtoreg ? data : aluout;
+  logic [31:0] result;
+  assign result = memtoreg ? data : aluout;
   logic [31:0] rd_a, rd_b;
   regfile rf(clk, regwrite, instr[25:21], instr[20:16], writereg, result,
     rd_a, rd_b);
