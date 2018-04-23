@@ -3,8 +3,8 @@
 module controller_testbench();
 
   // input
-  logic clk, reset, funct, zero;
-  logic [5:0] op;
+  logic clk, reset, zero;
+  logic [5:0] op, funct;
 
   // output
   logic pcen, memwrite, irwrite, regwrite, alusrca, iord, memtoreg, regdst;
