@@ -50,7 +50,7 @@ module maindec(input logic clk, reset,
           BEQ: nextstate = BEQEX;
           ADDI: nextstate = ADDIEX;
           J: nextstate = JEX;
-          default: nextstate = 4'bx; // should never happen
+          default: nextstate = 4'b0000; // should never happen
         endcase
       MEMADR: case(op)
           LW: nextstate = MEMRD;
